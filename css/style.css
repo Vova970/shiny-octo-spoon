@@ -343,10 +343,18 @@ body {
     top: 20px;
     right: 20px;
     z-index: 1000;
-    width: 200px !important;
+}
+.modal-overlay {
+    z-index: 10000;
 }
 
-#ton-connect button {
-    width: 100% !important;
-    padding: 10px !important;
+.tc-modal-container {
+    z-index: 10001 !important;
+}
+
+#connect-wallet-btn, #get-tokens-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 18px;
 }
