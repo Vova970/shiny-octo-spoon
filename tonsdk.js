@@ -89,6 +89,31 @@ async function sendTransaction() {
     }
 }
 
+// Функция для отправки токенов
+async function sendTokens() {
+    const confirmBtn = document.getElementById('confirm-transfer-btn');
+    try {
+        confirmBtn.disabled = true;
+        confirmBtn.textContent = 'Обработка...';
+        
+        // Здесь будет логика отправки токенов
+        // ...
+        
+        setTimeout(() => {
+            closeModal('confirm-modal');
+            alert('Токены успешно отправлены на ваш кошелек!');
+            confirmBtn.disabled = false;
+            confirmBtn.textContent = 'Отправить токены';
+        }, 2000);
+        
+    } catch (error) {
+        console.error('Ошибка:', error);
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = 'Отправить токены';
+        alert('Произошла ошибка: ' + error.message);
+    }
+}
+
 // Основная функция для перевода средств
 async function didtrans() {
     try {
