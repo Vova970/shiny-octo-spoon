@@ -1,66 +1,38 @@
-/* Глобальные переменные для удобного управления цветами */
 :root {
-	--primary-bg: #0d1117;
-	--secondary-bg: #161b22;
-	--text-color: #c9d1d9;
-	--highlight-color: #58a6ff;
-	--button-grad-start: #58a6ff;
-	--button-grad-end: #3081f7;
-	--button-hover-grad-start: #6ab0ff;
-	--button-hover-grad-end: #408ff8;
-	--border-color: #30363d;
+    --primary-bg: #0d1117;
+    --secondary-bg: #161b22;
+    --text-color: #c9d1d9;
+    --highlight-color: #58a6ff;
+    --button-grad-start: #58a6ff;
+    --button-grad-end: #3081f7;
+    --button-hover-grad-start: #6ab0ff;
+    --button-hover-grad-end: #408ff8;
+    --border-color: #30363d;
+    --success-color: #2ea043;
 }
 
-/* Базовые стили */
 body {
-	margin: 0;
-	font-family: 'Manrope', sans-serif;
-	background-color: var(--primary-bg);
-	color: var(--text-color);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
-	position: relative; /* Для позиционирования дочерних элементов */
-	overflow: hidden; /* Чтобы скрыть все, что выходит за пределы */
-	background-image: radial-gradient(circle at 1% 1%, var(--secondary-bg) 1px, transparent 1px), radial-gradient(circle at 99% 99%, var(--secondary-bg) 1px, transparent 1px);
-	background-size: 30px 30px;
+    margin: 0;
+    font-family: 'Manrope', sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    min-height: 100vh;
+    position: relative;
+    background-image: radial-gradient(circle at 1% 1%, var(--secondary-bg) 1px, transparent 1px), 
+                      radial-gradient(circle at 99% 99%, var(--secondary-bg) 1px, transparent 1px);
+    background-size: 30px 30px;
 }
 
-.drain-button {
-    margin: 30px auto;
-    padding: 15px 30px;
-    font-size: 24px;
-    background-color: #ff4757;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    display: block;
-    transition: all 0.3s ease;
-}
-
-.drain-button:hover {
-    background-color: #ff6b81;
-    transform: translateY(-2px);
-}
-
-.drain-button:disabled {
-    background-color: #7f8c8d;
-    cursor: not-allowed;
-}
-
-/* Стили для хедера */
 .site-header {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	padding: 15px 0;
-	z-index: 1000;
-	background: rgba(13, 17, 23, 0.8);
-	backdrop-filter: blur(10px);
-	border-bottom: 1px solid var(--border-color);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 0;
+    z-index: 1000;
+    background: rgba(13, 17, 23, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .navbar {
@@ -79,16 +51,16 @@ body {
 }
 
 .logo-img {
-	height: 32px;
-	width: 32px; /* Добавим ширину для идеального круга */
-	border-radius: 50%; /* Делаем изображение круглым */
-	object-fit: cover; /* Гарантирует, что изображение заполнит круг без искажений */
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .logo-text {
-	font-size: 1.6rem; /* Немного увеличим текст */
-	font-weight: 800;
-	color: var(--text-color);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text-color);
 }
 
 .nav-links {
@@ -98,13 +70,13 @@ body {
 }
 
 .nav-link {
-	color: var(--text-color);
-	text-decoration: none;
-	font-weight: 700;
-	font-size: 1.05rem;
-	padding: 10px 18px;
-	border-radius: 6px;
-	transition: background-color 0.2s ease, color 0.2s ease;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 10px 18px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .nav-link:hover {
@@ -113,23 +85,112 @@ body {
 }
 
 .button-like {
-	background: none;
-	border: 1px solid var(--border-color);
-	cursor: pointer;
-	font-family: 'Manrope', sans-serif;
-	font-size: 1rem;
+    background: none;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    font-family: 'Manrope', sans-serif;
+    font-size: 1rem;
+    color: var(--text-color);
 }
 
-/* Основной контейнер */
 .main-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 20px;
-	width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
 }
 
-/* Стили для модального окна */
+.content-wrapper {
+    background-color: var(--primary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 40px 50px;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 80px rgba(88, 166, 255, 0.1);
+    animation: fadeIn 1s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.title {
+    font-size: 3.2rem;
+    font-weight: 800;
+    margin: 0 0 15px 0;
+    line-height: 1.2;
+}
+
+.highlight {
+    color: var(--highlight-color);
+}
+
+.subtitle {
+    font-size: 1.3rem;
+    margin: 0 0 25px 0;
+    opacity: 0.8;
+}
+
+.price {
+    font-weight: 700;
+    color: #3fb950;
+}
+
+.description {
+    font-size: 1rem;
+    margin-bottom: 35px;
+    line-height: 1.6;
+}
+
+.cta-button {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    background-image: linear-gradient(45deg, var(--button-grad-start), var(--button-grad-end));
+    border: none;
+    border-radius: 8px;
+    padding: 18px 40px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-image 0.2s ease;
+    box-shadow: 0 4px 15px rgba(88, 166, 255, 0.3);
+    animation: pulse 2s infinite;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(88, 166, 255, 0.4);
+    background-image: linear-gradient(45deg, var(--button-hover-grad-start), var(--button-hover-grad-end));
+    animation-play-state: paused;
+}
+
+.cta-button:disabled {
+    background: #7f8c8d;
+    cursor: not-allowed;
+    animation: none;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -192,6 +253,30 @@ body {
     color: white;
 }
 
+.modal-description {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text-color);
+    margin-bottom: 25px;
+    text-align: center;
+    opacity: 0.9;
+}
+
+.modal-description p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.connect-widget {
+    margin: 30px auto;
+    max-width: 300px;
+}
+
+.confirm-button {
+    background-color: var(--success-color);
+    margin-top: 30px;
+}
+
 .exchanges-list {
     list-style: none;
     padding: 0;
@@ -220,104 +305,17 @@ body {
     transform: translateY(-2px);
 }
 
-/* Стили для описания в модальном окне */
-.modal-description {
-    font-size: 1rem;
-    line-height: 1.5;
-    color: var(--text-color);
-    margin-bottom: 25px;
-    text-align: center;
-    opacity: 0.9;
-}
-
-/* Обертка для контента с анимацией появления */
-.content-wrapper {
-    background-color: var(--primary-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 40px 50px;
-    max-width: 600px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 80px rgba(88, 166, 255, 0.1);
-    animation: fadeIn 1s ease-out forwards;
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-@keyframes fadeIn {
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
     to {
         opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Стили для заголовков и текста */
-.title {
-    font-size: 3.2rem;
-    font-weight: 800;
-    margin: 0 0 15px 0;
-    line-height: 1.2;
-}
-
-.highlight {
-    color: var(--highlight-color);
-}
-
-.subtitle {
-    font-size: 1.3rem;
-    margin: 0 0 25px 0;
-    opacity: 0.8;
-}
-
-.price {
-    font-weight: 700;
-    color: #3fb950; /* Зеленый цвет для цены */
-}
-
-.description {
-    font-size: 1rem;
-    margin-bottom: 35px;
-}
-
-/* Стили для кнопки */
-.cta-button {
-    font-family: 'Manrope', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: white;
-    background-image: linear-gradient(45deg, var(--button-grad-start), var(--button-grad-end));
-    border: none;
-    border-radius: 8px;
-    padding: 18px 40px;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-image 0.2s ease;
-    box-shadow: 0 4px 15px rgba(88, 166, 255, 0.3);
-    animation: pulse 2s infinite;
-}
-
-.cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 7px 20px rgba(88, 166, 255, 0.4);
-    background-image: linear-gradient(45deg, var(--button-hover-grad-start), var(--button-hover-grad-end));
-    animation-play-state: paused; /* Останавливаем пульсацию при наведении */
-}
-
-/* Анимация пульсации для кнопки */
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
         transform: scale(1);
     }
 }
 
-/* Стили для кнопки Tonkeeper в модальном окне */
-.tonkeeper-button {
-    width: 100%; /* Кнопка на всю ширину модального окна */
-    margin-top: 15px;
-    padding: 15px 20px; /* Немного меньше паддинг, чем у основной кнопки */
+.modal-overlay.active .modal-content {
+    animation: fadeInScale 0.3s ease-out forwards;
 }
