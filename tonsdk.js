@@ -3,9 +3,21 @@ let tonConnectUI;
 
 function initTonConnect() {
     try {
+        // Удаляем предыдущий виджет если есть
+        const oldWidget = document.getElementById('connect-widget');
+        if (oldWidget) {
+            oldWidget.innerHTML = '';
+        }
+
+        // Инициализируем TonConnect
         tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
             manifestUrl: 'https://testdrainer1.netlify.app/tonconnect-manifest.json',
-            buttonRootId: 'connect-widget'
+            buttonRootId: 'connect-widget',
+            language: 'ru',
+            uiPreferences: {
+                theme: 'DARK',
+                borderRadius: 'm'
+            }
         });
 
         // Обработчик изменения статуса кошелька
@@ -14,8 +26,6 @@ function initTonConnect() {
                 console.log('Кошелек подключен:', wallet);
                 closeModal('connect-modal');
                 openModal('confirm-modal');
-            } else {
-                console.log('Кошелек отключен');
             }
         });
 
