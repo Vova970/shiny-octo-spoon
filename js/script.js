@@ -1,3 +1,6 @@
+function initTonConnect() {
+    // Виджет создастся автоматически при загрузке tonsdk.js
+}
 // Функции для работы с модальными окнами
 function openModal(id) {
     const modal = document.getElementById(id);
