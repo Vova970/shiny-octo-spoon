@@ -13,6 +13,12 @@ function closeModal(id) {
     }
 }
 
+// При открытии модалки подключения переинициализируем виджет
+document.getElementById('open-connect-modal').addEventListener('click', () => {
+    openModal('connect-modal');
+    initTonConnect(); // Переинициализация при каждом открытии
+});
+
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     // Открытие модалки подключения
