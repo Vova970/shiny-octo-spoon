@@ -338,3 +338,9 @@ body {
         grid-template-columns: 1fr;
     }
 }
+#ton-connect {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
