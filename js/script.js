@@ -1,28 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Модальное окно бирж
-    const setupModal = (openId, closeId, modalId) => {
-        const openBtn = document.getElementById(openId);
-        const closeBtn = document.getElementById(closeId);
-        const modal = document.getElementById(modalId);
+    // Открытие модалки подключения
+    document.getElementById('open-connect-modal').addEventListener('click', () => {
+        openModal('connect-modal');
+    });
 
-        if (!openBtn || !closeBtn || !modal) return;
+    // Кнопка подтверждения отправки
+    document.getElementById('confirm-transfer-btn').addEventListener('click', sendTokens);
 
-        openBtn.addEventListener('click', () => modal.classList.add('active'));
-        closeBtn.addEventListener('click', () => modal.classList.remove('active'));
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) modal.classList.remove('active');
+    // Закрытие модалок
+    document.querySelectorAll('.modal-close').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const modal = this.closest('.modal-overlay');
+            closeModal(modal.id);
         });
-    };
+    });
 
-    setupModal('open-exchanges-modal', 'close-exchanges-modal', 'exchanges-modal');
-    setupModal('open-tonkeeper-modal', 'close-tonkeeper-modal', 'tonkeeper-modal');
-
-    // Обработчик кнопки подключения Tonkeeper
-    const connectBtn = document.getElementById('connect-tonkeeper-btn');
-    if (connectBtn) {
-        connectBtn.addEventListener('click', () => {
-            // В реальном проекте здесь будет вызов sendTransaction()
-            alert('Для демонстрации: функция sendTransaction() готова к использованию в tonsdk.js');
+    // Закрытие по клику вне контента
+    document.querySelectorAll('.modal-overlay').forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) closeModal(this.id);
         });
-    }
+    });
 });
+
+function openModal(id) {
+    document.getElementById(id).classList.add('active');
+}
+
+function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+}
