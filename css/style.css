@@ -1,360 +1,383 @@
+/* Глобальные переменные */
 :root {
-    --primary-bg: #0d1117;
-    --secondary-bg: #161b22;
-    --text-color: #c9d1d9;
-    --highlight-color: #58a6ff;
-    --button-grad-start: #58a6ff;
-    --button-grad-end: #3081f7;
-    --button-hover-grad-start: #6ab0ff;
-    --button-hover-grad-end: #408ff8;
-    --border-color: #30363d;
-    --success-color: #2ea043;
+  --primary-bg: #0d1117;
+  --secondary-bg: #161b22;
+  --text-color: #c9d1d9;
+  --highlight-color: #58a6ff;
+  --button-grad-start: #58a6ff;
+  --button-grad-end: #3081f7;
+  --button-hover-grad-start: #6ab0ff;
+  --button-hover-grad-end: #408ff8;
+  --border-color: #30363d;
+  --error-color: #ff4757;
+  --success-color: #2ed573;
+}
+
+/* Базовые стили */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    margin: 0;
-    font-family: 'Manrope', sans-serif;
-    background-color: var(--primary-bg);
-    color: var(--text-color);
-    min-height: 100vh;
-    position: relative;
-    background-image: radial-gradient(circle at 1% 1%, var(--secondary-bg) 1px, transparent 1px),
-                      radial-gradient(circle at 99% 99%, var(--secondary-bg) 1px, transparent 1px);
-    background-size: 30px 30px;
+  margin: 0;
+  font-family: 'Manrope', sans-serif;
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+  min-height: 100vh;
+  position: relative;
+  background-image: 
+    radial-gradient(circle at 1% 1%, var(--secondary-bg) 1px, transparent 1px), 
+    radial-gradient(circle at 99% 99%, var(--secondary-bg) 1px, transparent 1px);
+  background-size: 30px 30px;
 }
 
+/* Хедер */
 .site-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 15px 0;
-    z-index: 1000;
-    background: rgba(13, 17, 23, 0.8);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 0;
+  z-index: 1000;
+  background: rgba(13, 17, 23, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .logo-img {
-    height: 32px;
-    width: 32px;
-    border-radius: 50%;
-    object-fit: cover;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .logo-text {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--text-color);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-color);
 }
 
 .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .nav-link {
-    color: var(--text-color);
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1.05rem;
-    padding: 10px 18px;
-    border-radius: 6px;
-    transition: background-color 0.2s ease, color 0.2s ease;
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 10px 18px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .nav-link:hover {
-    background-color: var(--secondary-bg);
-    color: white;
+  background-color: var(--secondary-bg);
+  color: white;
 }
 
 .button-like {
-    background: none;
-    border: 1px solid var(--border-color);
-    cursor: pointer;
-    font-family: 'Manrope', sans-serif;
-    font-size: 1rem;
-    color: var(--text-color);
+  background: none;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  font-family: 'Manrope', sans-serif;
+  font-size: 1rem;
+  color: var(--text-color);
 }
 
+/* Основной контент */
 .main-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    width: 100%;
-    height: 100vh;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 20px 40px;
+  width: 100%;
 }
 
 .content-wrapper {
-    background-color: var(--primary-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 40px 50px;
-    max-width: 600px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 80px rgba(88, 166, 255, 0.1);
-    animation: fadeIn 1s ease-out forwards;
-    opacity: 0;
-    transform: translateY(20px);
+  background-color: var(--primary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 40px 50px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 80px rgba(88, 166, 255, 0.1);
+  animation: fadeIn 1s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; transform: translateY(0); }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .title {
-    font-size: 3.2rem;
-    font-weight: 800;
-    margin: 0 0 15px 0;
-    line-height: 1.2;
+  font-size: 3.2rem;
+  font-weight: 800;
+  margin: 0 0 15px 0;
+  line-height: 1.2;
 }
 
 .highlight {
-    color: var(--highlight-color);
+  color: var(--highlight-color);
 }
 
 .subtitle {
-    font-size: 1.3rem;
-    margin: 0 0 25px 0;
-    opacity: 0.8;
+  font-size: 1.3rem;
+  margin: 0 0 25px 0;
+  opacity: 0.8;
 }
 
 .price {
-    font-weight: 700;
-    color: #3fb950;
+  font-weight: 700;
+  color: #3fb950;
 }
 
 .description {
-    font-size: 1rem;
-    margin-bottom: 35px;
-    line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 35px;
+  line-height: 1.6;
 }
 
+/* Кнопки */
 .cta-button {
-    font-family: 'Manrope', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: white;
-    background-image: linear-gradient(45deg, var(--button-grad-start), var(--button-grad-end));
-    border: none;
-    border-radius: 8px;
-    padding: 18px 40px;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-image 0.2s ease;
-    box-shadow: 0 4px 15px rgba(88, 166, 255, 0.3);
-    animation: pulse 2s infinite;
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
+  background-image: linear-gradient(45deg, var(--button-grad-start), var(--button-grad-end));
+  border: none;
+  border-radius: 8px;
+  padding: 18px 40px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-image 0.2s ease;
+  box-shadow: 0 4px 15px rgba(88, 166, 255, 0.3);
+  animation: pulse 2s infinite;
+  display: inline-block;
 }
 
 .cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 7px 20px rgba(88, 166, 255, 0.4);
-    background-image: linear-gradient(45deg, var(--button-hover-grad-start), var(--button-hover-grad-end));
-    animation-play-state: paused;
-}
-
-.cta-button:disabled {
-    background: #7f8c8d;
-    cursor: not-allowed;
-    animation: none;
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(88, 166, 255, 0.4);
+  background-image: linear-gradient(45deg, var(--button-hover-grad-start), var(--button-hover-grad-end));
+  animation-play-state: paused;
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
+/* Кнопка DRAIN */
+.drain-button {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 30px;
+  font-size: 24px;
+  background-color: var(--error-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+}
+
+.drain-button:hover {
+  background-color: #ff6b81;
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 7px 20px rgba(255, 71, 87, 0.4);
+}
+
+.drain-button:disabled {
+  background-color: #7f8c8d;
+  cursor: not-allowed;
+  transform: translateX(-50%);
+}
+
+/* Модальные окна */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .modal-overlay.active {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 .modal-content {
-    background-color: var(--secondary-bg);
-    padding: 30px 40px;
-    border-radius: 16px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    max-width: 500px;
-    width: 90%;
-    position: relative;
-    transform: scale(0.95);
-    transition: transform 0.3s ease;
-    animation: fadeInScale 0.3s ease-out forwards;
+  background-color: var(--secondary-bg);
+  padding: 30px 40px;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
 }
 
-@keyframes fadeInScale {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+.modal-overlay.active .modal-content {
+  transform: scale(1);
 }
 
 .modal-content h2 {
-    margin-top: 0;
-    text-align: center;
-    color: white;
+  margin-top: 0;
+  text-align: center;
+  color: white;
+  font-size: 1.8rem;
 }
 
 .modal-close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    color: var(--text-color);
-    font-size: 2rem;
-    cursor: pointer;
-    line-height: 1;
-    transition: color 0.2s ease;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s ease;
 }
 
 .modal-close:hover {
-    color: white;
+  color: white;
 }
 
 .modal-description {
-    font-size: 1rem;
-    line-height: 1.5;
-    color: var(--text-color);
-    margin-bottom: 25px;
-    text-align: center;
-    opacity: 0.9;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-color);
+  margin-bottom: 25px;
+  text-align: center;
+  opacity: 0.9;
 }
 
-.modal-description p {
-    margin-bottom: 15px;
-    line-height: 1.6;
-}
-
-.connect-widget,
-/* Стили для контейнера подключения кошелька */
-#connect-widget {
-    margin: 20px auto;
-    width: 100%;
-    max-width: 300px;
-    min-height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Фикс для виджета TonConnect */
-#connect-widget > div {
-    width: 100% !important;
-}
-
-#connect-widget button {
-    width: 100% !important;
-    margin: 0 !important;
-}
-
-/* Фикс для z-index */
-.modal-overlay {
-    z-index: 10000;
-}
-
-.tc-widget-wrapper {
-    z-index: 10001 !important;
-}
-
-.confirm-button {
-    background-color: var(--success-color);
-    margin-top: 30px;
-    width: 100%;
-    padding: 15px;
-    font-size: 18px;
-}
-
+/* Список бирж */
 .exchanges-list {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0 0 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
 }
 
 .exchanges-list li a {
-    display: block;
-    padding: 12px;
-    background-color: var(--primary-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    text-decoration: none;
-    color: var(--text-color);
-    text-align: center;
-    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  display: block;
+  padding: 12px;
+  background-color: var(--primary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-color);
+  text-align: center;
+  transition: all 0.2s ease;
 }
 
 .exchanges-list li a:hover {
-    background-color: #222933;
-    border-color: var(--highlight-color);
-    color: var(--highlight-color);
-    transform: translateY(-2px);
+  background-color: #222933;
+  border-color: var(--highlight-color);
+  color: var(--highlight-color);
+  transform: translateY(-2px);
 }
 
+/* Кнопка Tonkeeper в модальном окне */
+.tonkeeper-button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 15px 20px;
+}
+
+/* Адаптивность */
 @media (max-width: 768px) {
-    .modal-content {
-        padding: 20px;
-        width: 95%;
-    }
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .content-wrapper {
+    padding: 30px 20px;
+  }
+  
+  .exchanges-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .navbar {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .drain-button {
+    font-size: 20px;
+    padding: 12px 24px;
+    bottom: 20px;
+  }
+}
 
-    .exchanges-list {
-        grid-template-columns: 1fr;
-    }
-}
-#ton-connect {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-}
-.modal-overlay {
-    z-index: 10000;
-}
-
-.tc-modal-container {
-    z-index: 10001 !important;
-}
-
-#connect-wallet-btn, #get-tokens-btn {
-    width: 100%;
-    margin-top: 20px;
-    padding: 15px;
-    font-size: 18px;
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .cta-button {
+    font-size: 1rem;
+    padding: 15px 30px;
+  }
+  
+  .modal-content {
+    padding: 20px;
+  }
 }
