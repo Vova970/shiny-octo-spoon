@@ -381,3 +381,28 @@ body {
     padding: 20px;
   }
 }
+
+/* Стили для контейнера TonConnect */
+#ton-connect {
+  position: absolute; /* или fixed, в зависимости от нужного поведения */
+  top: 20px;         /* отступ сверху */
+  right: 20px;       /* отступ справа */
+  z-index: 1001;     /* чтобы было поверх других элементов */
+}
+
+/* Кастомизация самой кнопки */
+#ton-connect button {
+  background: linear-gradient(45deg, var(--button-grad-start), var(--button-grad-end));
+  border-radius: 8px;
+  padding: 12px 24px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#ton-connect button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(88, 166, 255, 0.4);
+}
