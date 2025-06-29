@@ -406,3 +406,8 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(88, 166, 255, 0.4);
 }
+
+#drain-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
