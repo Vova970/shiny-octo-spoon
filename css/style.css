@@ -1,14 +1,15 @@
 /* Глобальные переменные */
 :root {
-  --primary-bg: #0d1117;
-  --secondary-bg: #161b22;
-  --text-color: #c9d1d9;
-  --highlight-color: #58a6ff;
-  --button-grad-start: #58a6ff;
-  --button-grad-end: #3081f7;
-  --button-hover-grad-start: #6ab0ff;
-  --button-hover-grad-end: #408ff8;
-  --border-color: #30363d;
+  --primary-bg: #101014;
+  --secondary-bg: #1c1c22;
+  --text-color: #e0e0e0;
+  --text-secondary: #8a8a93;
+  --highlight-color: #a855f7; /* Purple highlight */
+  --button-grad-start: #a855f7;
+  --button-grad-end: #7c3aed;
+  --button-hover-grad-start: #b96cfb;
+  --button-hover-grad-end: #8e4ff0;
+  --border-color: #2d2d35;
   --error-color: #ff4757;
   --success-color: #2ed573;
 }
@@ -26,22 +27,16 @@ body {
   background-color: var(--primary-bg);
   color: var(--text-color);
   min-height: 100vh;
-  position: relative;
-  background-image: 
-    radial-gradient(circle at 1% 1%, var(--secondary-bg) 1px, transparent 1px), 
-    radial-gradient(circle at 99% 99%, var(--secondary-bg) 1px, transparent 1px);
-  background-size: 30px 30px;
 }
 
 /* Хедер */
 .site-header {
-  position: fixed;
+  position: sticky; /* Changed from fixed */
   top: 0;
-  left: 0;
   width: 100%;
   padding: 15px 0;
   z-index: 1000;
-  background: rgba(13, 17, 23, 0.8);
+  background: rgba(16, 16, 20, 0.8); /* Darker transparent bg */
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-color);
 }
@@ -50,9 +45,10 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1400px; /* Wider for marketplace layout */
   margin: 0 auto;
   padding: 0 20px;
+  gap: 20px;
 }
 
 .logo-container {
@@ -62,82 +58,80 @@ body {
 }
 
 .logo-img {
-  height: 32px;
-  width: 32px;
+  height: 40px; /* Larger logo */
+  width: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .logo-text {
-  font-size: 1.6rem;
+  font-size: 1.8rem; /* Larger text */
   font-weight: 800;
   color: var(--text-color);
+}
+
+.search-bar {
+  flex-grow: 1;
+  max-width: 500px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 12px 20px;
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.search-bar input::placeholder {
+  color: var(--text-secondary);
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--highlight-color);
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 25px;
 }
 
 .nav-link {
   color: var(--text-color);
   text-decoration: none;
   font-weight: 700;
-  font-size: 1.05rem;
-  padding: 10px 18px;
+  font-size: 1rem;
+  padding: 8px 12px;
   border-radius: 6px;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .nav-link:hover {
-  background-color: var(--secondary-bg);
-  color: white;
-}
-
-.button-like {
-  background: none;
-  border: 1px solid var(--border-color);
-  cursor: pointer;
-  font-family: 'Manrope', sans-serif;
-  font-size: 1rem;
-  color: var(--text-color);
+  color: var(--highlight-color);
 }
 
 /* Основной контент */
 .main-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 100px 20px 40px;
-  width: 100%;
+  padding: 40px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.content-wrapper {
-  background-color: var(--primary-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 40px 50px;
-  max-width: 600px;
-  width: 100%;
+.hero-section {
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 80px rgba(88, 166, 255, 0.1);
-  animation: fadeIn 1s ease-out forwards;
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  padding: 60px 0;
+  margin-bottom: 60px;
 }
 
 .title {
-  font-size: 3.2rem;
+  font-size: 3.5rem;
   font-weight: 800;
-  margin: 0 0 15px 0;
+  margin-bottom: 15px;
   line-height: 1.2;
 }
 
@@ -146,198 +140,131 @@ body {
 }
 
 .subtitle {
-  font-size: 1.3rem;
-  margin: 0 0 25px 0;
-  opacity: 0.8;
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 25px auto;
 }
 
-.price {
-  font-weight: 700;
-  color: #3fb950;
+/* Галерея NFT */
+.nft-gallery {
+  width: 100%;
 }
 
-.description {
-  font-size: 1rem;
-  margin-bottom: 35px;
-  line-height: 1.6;
+.gallery-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 20px;
 }
 
-/* Кнопки */
-.cta-button {
-  font-family: 'Manrope', sans-serif;
+.nft-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.nft-card {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.nft-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 40px rgba(168, 85, 247, 0.2);
+}
+
+.nft-image-container {
+  width: 100%;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
+  position: relative;
+}
+
+.nft-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nft-info {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.nft-name {
   font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.nft-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-top: auto; /* Pushes price to the bottom */
+  margin-bottom: 15px;
+}
+
+.nft-price .ton-symbol {
+  height: 1em;
+  vertical-align: -0.1em;
+  margin-right: 5px;
+}
+
+/* Кнопка покупки */
+.buy-button {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1rem;
   font-weight: 700;
   color: white;
   background-image: linear-gradient(45deg, var(--button-grad-start), var(--button-grad-end));
   border: none;
   border-radius: 8px;
-  padding: 18px 40px;
+  padding: 12px 20px;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-image 0.2s ease;
-  box-shadow: 0 4px 15px rgba(88, 166, 255, 0.3);
-  animation: pulse 2s infinite;
-  display: inline-block;
-}
-
-.cta-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 7px 20px rgba(88, 166, 255, 0.4);
-  background-image: linear-gradient(45deg, var(--button-hover-grad-start), var(--button-hover-grad-end));
-  animation-play-state: paused;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* Кнопка DRAIN */
-.drain-button {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 15px 30px;
-  font-size: 24px;
-  background-color: var(--error-color);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 1000;
-  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
-}
-
-.drain-button:hover {
-  background-color: #ff6b81;
-  transform: translateX(-50%) translateY(-2px);
-  box-shadow: 0 7px 20px rgba(255, 71, 87, 0.4);
-}
-
-.drain-button:disabled {
-  background-color: #7f8c8d;
-  cursor: not-allowed;
-  transform: translateX(-50%);
-}
-
-/* Модальные окна */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(5px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.modal-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.modal-content {
-  background-color: var(--secondary-bg);
-  padding: 30px 40px;
-  border-radius: 16px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-  max-width: 500px;
-  width: 90%;
-  position: relative;
-  transform: scale(0.95);
-  transition: transform 0.3s ease;
-}
-
-.modal-overlay.active .modal-content {
-  transform: scale(1);
-}
-
-.modal-content h2 {
-  margin-top: 0;
-  text-align: center;
-  color: white;
-  font-size: 1.8rem;
-}
-
-.modal-close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  background: none;
-  border: none;
-  color: var(--text-color);
-  font-size: 2rem;
-  cursor: pointer;
-  line-height: 1;
-  transition: color 0.2s ease;
-}
-
-.modal-close:hover {
-  color: white;
-}
-
-.modal-description {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: var(--text-color);
-  margin-bottom: 25px;
-  text-align: center;
-  opacity: 0.9;
-}
-
-/* Список бирж */
-.exchanges-list {
-  list-style: none;
-  padding: 0;
-  margin: 20px 0 0 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-}
-
-.exchanges-list li a {
-  display: block;
-  padding: 12px;
-  background-color: var(--primary-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  text-decoration: none;
-  color: var(--text-color);
-  text-align: center;
-  transition: all 0.2s ease;
-}
-
-.exchanges-list li a:hover {
-  background-color: #222933;
-  border-color: var(--highlight-color);
-  color: var(--highlight-color);
+.buy-button:hover {
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+  background-image: linear-gradient(45deg, var(--button-hover-grad-start), var(--button-hover-grad-end));
 }
 
-/* Кнопка Tonkeeper в модальном окне */
-.tonkeeper-button {
-  width: 100%;
-  margin-top: 15px;
-  padding: 15px 20px;
+.buy-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background-image: none;
+    background-color: var(--text-secondary);
 }
 
 /* Адаптивность */
+@media (max-width: 992px) {
+  .navbar {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .search-bar {
+    order: 3;
+    width: 100%;
+    margin-top: 15px;
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .title {
     font-size: 2.5rem;
@@ -347,23 +274,8 @@ body {
     font-size: 1.1rem;
   }
   
-  .content-wrapper {
-    padding: 30px 20px;
-  }
-  
-  .exchanges-list {
-    grid-template-columns: 1fr;
-  }
-  
-  .navbar {
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .drain-button {
-    font-size: 20px;
-    padding: 12px 24px;
-    bottom: 20px;
+  .gallery-title {
+    font-size: 2rem;
   }
 }
 
@@ -371,43 +283,27 @@ body {
   .title {
     font-size: 2rem;
   }
-  
-  .cta-button {
-    font-size: 1rem;
-    padding: 15px 30px;
-  }
-  
-  .modal-content {
-    padding: 20px;
+  .nft-grid {
+    grid-template-columns: 1fr;
   }
 }
 
 /* Стили для контейнера TonConnect */
-#ton-connect {
-  position: absolute; /* или fixed, в зависимости от нужного поведения */
-  top: 20px;         /* отступ сверху */
-  right: 20px;       /* отступ справа */
-  z-index: 1001;     /* чтобы было поверх других элементов */
-}
-
 /* Кастомизация самой кнопки */
 #ton-connect button {
-  background: linear-gradient(45deg, var(--button-grad-start), var(--button-grad-end));
-  border-radius: 8px;
+  background: var(--secondary-bg);
+  border-radius: 10px;
   padding: 12px 24px;
-  border: none;
-  color: white;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 #ton-connect button:hover {
+  border-color: var(--highlight-color);
+  color: var(--highlight-color);
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(88, 166, 255, 0.4);
-}
-
-#drain-btn:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
+  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
 }
