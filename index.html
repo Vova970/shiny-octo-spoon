@@ -1,195 +1,624 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>getgems - NFT Marketplace</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>getgems - NFT Marketplace</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@500;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --primary-bg: #1a1a1a;
+      --secondary-bg: #2a2a2a;
+      --text-color: #ffffff;
+      --highlight-color: #7b61ff;
+      --border-color: #3a3a3a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--primary-bg);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Header */
+    .site-header {
+      background-color: var(--primary-bg);
+      padding: 10px 20px;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .logo-text {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--highlight-color);
+    }
+
+    .search-bar input {
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      background-color: var(--secondary-bg);
+      color: var(--text-color);
+      width: 300px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-link {
+      margin-left: 20px;
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .nav-link:hover {
+      color: var(--highlight-color);
+    }
+
+    .wallet-info {
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
+    }
+
+    .balance {
+      margin-right: 10px;
+      color: var(--highlight-color);
+    }
+
+    .connect-wallet {
+      padding: 8px 16px;
+      background-color: var(--highlight-color);
+      color: var(--primary-bg);
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .connect-wallet:hover {
+      opacity: 0.9;
+    }
+
+    /* Hero Section */
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .hero-section {
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .title {
+      font-size: 48px;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 10px;
+    }
+
+    .highlight {
+      color: var(--highlight-color);
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: #b0b0b0;
+      margin-bottom: 20px;
+    }
+
+    .cta-button {
+      padding: 12px 24px;
+      background-color: var(--highlight-color);
+      color: var(--primary-bg);
+      text-decoration: none;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .cta-button:hover {
+      opacity: 0.9;
+    }
+
+    /* Featured Section */
+    .featured-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .featured-card {
+      background-color: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .featured-image {
+      width: 100%;
+      height: auto;
+    }
+
+    .featured-content h3 {
+      font-size: 16px;
+      margin: 10px 0 5px;
+    }
+
+    .featured-content p {
+      font-size: 12px;
+      color: #b0b0b0;
+    }
+
+    /* Trending NFTs */
+    .nft-gallery {
+      margin: 40px 0;
+    }
+
+    .gallery-title {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .nft-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .nft-card {
+      background-color: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nft-image-container {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .nft-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .nft-info {
+      padding: 10px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .nft-name {
+      font-size: 16px;
+      margin: 0 0 10px;
+    }
+
+    .nft-price {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .ton-symbol {
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
+    }
+
+    .buy-button {
+      padding: 8px;
+      background-color: var(--highlight-color);
+      color: var(--primary-bg);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .buy-button:hover {
+      opacity: 0.9;
+    }
+
+    /* Top Sections */
+    .top-collections,
+    .top-auctions,
+    .top-telegram-gifts {
+      margin: 40px 0;
+    }
+
+    .section-title {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .filter {
+      color: #b0b0b0;
+      margin-left: 10px;
+    }
+
+    .collection-list,
+    .auction-list,
+    .gift-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+    }
+
+    .collection-item,
+    .auction-item,
+    .gift-item {
+      display: flex;
+      align-items: center;
+      background-color: var(--secondary-bg);
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .collection-item img,
+    .auction-item img,
+    .gift-item img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .price,
+    .bid {
+      margin-left: auto;
+      color: var(--highlight-color);
+    }
+
+    .change {
+      color: #b0b0b0;
+    }
+
+    .auction-item .time {
+      color: #b0b0b0;
+      margin-left: 10px;
+    }
+
+    .see-all {
+      padding: 8px 16px;
+      background-color: var(--highlight-color);
+      color: var(--primary-bg);
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .see-all:hover {
+      opacity: 0.9;
+    }
+
+    /* Footer */
+    .site-footer {
+      background-color: var(--primary-bg);
+      padding: 20px;
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .footer-section h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .footer-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .footer-item img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .footer-item p {
+      margin: 0;
+      color: #b0b0b0;
+    }
+
+    .social-links a {
+      color: var(--highlight-color);
+      margin-right: 10px;
+      text-decoration: none;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      color: #b0b0b0;
+      margin-top: 20px;
+      grid-column: 1 / -1;
+    }
+  </style>
 </head>
 <body>
-    <header class="site-header">
-        <nav class="navbar">
-            <div class="logo-container">
-                <img src="images/logo.png" alt="getgems Logo" class="logo-img">
-                <span class="logo-text">getgems</span>
-            </div>
-            <div class="search-bar">
-                <input type="text" placeholder="Name or description">
-            </div>
-            <div class="nav-links">
-                <a href="#explore" class="nav-link">Explore</a>
-                <a href="#stats" class="nav-link">Stats</a>
-                <a href="#create" class="nav-link">Create</a>
-                <div class="wallet-info">
-                    <span class="balance">Ξ 2.74</span>
-                    <div id="ton-connect" class="connect-wallet">Connect Wallet</div>
-                </div>
-            </div>
-        </nav>
-    </header>
 
-    <main class="main-container">
-        <section class="hero-section">
-            <h1 class="title">Discover Rare <span class="highlight">NFTs</span> on TON</h1>
-            <p class="subtitle">The premier NFT marketplace on The Open Network. Buy, sell, and create unique digital assets.</p>
-            <a href="#explore" class="cta-button">Explore Now</a>
-        </section>
-
-        <section class="featured-section">
-            <div class="featured-card">
-                <img src="https://via.placeholder.com/300" alt="Custom Background" class="featured-image">
-                <div class="featured-content">
-                    <h3>CUSTOM BACKGROUND</h3>
-                    <p>Make your Telegram Username NFTs stand out with custom backgrounds</p>
-                </div>
-            </div>
-            <div class="featured-card">
-                <img src="https://via.placeholder.com/300" alt="NFT Land" class="featured-image">
-                <div class="featured-content">
-                    <h3>NFT LAND</h3>
-                    <p>Check out NFT from the NFT land. Holder collection #ad</p>
-                </div>
-            </div>
-            <div class="featured-card">
-                <img src="https://via.placeholder.com/300" alt="0% Fees for Gifts" class="featured-image">
-                <div class="featured-content">
-                    <h3>0% FEES FOR GIFTS</h3>
-                    <p>Telegram ownership: 100% ownership</p>
-                </div>
-            </div>
-            <div class="featured-card">
-                <img src="https://via.placeholder.com/300" alt="Getgems Wrapped 2024" class="featured-image">
-                <div class="featured-content">
-                    <h3>GETGEMS WRAPPED 2024</h3>
-                    <p>See a recap of the most exciting NFT releases in 2024</p>
-                </div>
-            </div>
-            <div class="featured-card">
-                <img src="https://via.placeholder.com/300" alt="How to Verify Collection?" class="featured-image">
-                <div class="featured-content">
-                    <h3>HOW TO VERIFY COLLECTION?</h3>
-                    <p>Learn how to verify your collection</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="nft-gallery">
-            <h2 class="gallery-title">Trending NFTs</h2>
-            <div id="nft-grid" class="nft-grid"></div>
-        </section>
-
-        <section class="top-collections">
-            <h2 class="section-title">Top Collections <span class="filter">1 day</span></h2>
-            <div class="collection-list">
-                <div class="collection-item">
-                    <img src="https://via.placeholder.com/50" alt="Anonymous Telegram Numbers">
-                    <span>Anonymous Telegram Numbers</span>
-                    <span class="price">888.8K TON</span>
-                    <span class="change">+7%</span>
-                </div>
-                <div class="collection-item">
-                    <img src="https://via.placeholder.com/50" alt="Telegram Usernames">
-                    <span>Telegram Usernames</span>
-                    <span class="price">503.8K TON</span>
-                    <span class="change">+7%</span>
-                </div>
-                <!-- Add more collection items as needed -->
-            </div>
-        </section>
-
-        <section class="top-auctions">
-            <h2 class="section-title">Top Auctions</h2>
-            <div class="auction-list">
-                <div class="auction-item">
-                    <img src="https://via.placeholder.com/100" alt="Durov's Caps">
-                    <span>Durov's Caps #3066</span>
-                    <span class="bid">7.875 TON</span>
-                    <span class="time">3 hours</span>
-                </div>
-                <div class="auction-item">
-                    <img src="https://via.placeholder.com/100" alt="Top Hats">
-                    <span>Top Hat #7550</span>
-                    <span class="bid">19.19 TON</span>
-                    <span class="time">6 hours</span>
-                </div>
-                <!-- Add more auction items as needed -->
-            </div>
-            <button class="see-all">See All</button>
-        </section>
-
-        <section class="top-telegram-gifts">
-            <h2 class="section-title">Top Telegram Gifts</h2>
-            <div class="gift-list">
-                <div class="gift-item">
-                    <img src="https://via.placeholder.com/50" alt="Plush Pepes">
-                    <span>Plush Pepes</span>
-                    <span class="price">62.9K TON</span>
-                    <span class="change">-48%</span>
-                </div>
-                <div class="gift-item">
-                    <img src="https://via.placeholder.com/50" alt="Precious Peaches">
-                    <span>Precious Peaches</span>
-                    <span class="price">4.3K TON</span>
-                    <span class="change">-48%</span>
-                </div>
-                <!-- Add more gift items as needed -->
-            </div>
-            <button class="see-all">See All</button>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <div class="footer-section">
-            <h3>About TON & NFT</h3>
-            <div class="footer-item">
-                <img src="https://via.placeholder.com/50" alt="What is Getgems?">
-                <p>What is Getgems?</p>
-            </div>
-            <div class="footer-item">
-                <img src="https://via.placeholder.com/50" alt="What is Ton?">
-                <p>What is Ton?</p>
-            </div>
-            <div class="footer-item">
-                <img src="https://via.placeholder.com/50" alt="What is an NFT?">
-                <p>What is an NFT?</p>
-            </div>
-            <div class="footer-item">
-                <img src="https://via.placeholder.com/50" alt="What is a crypto wallet?">
-                <p>What is a crypto wallet?</p>
-            </div>
-            <div class="footer-item">
-                <img src="https://via.placeholder.com/50" alt="How to buy Toncoins?">
-                <p>How to buy Toncoins?</p>
-            </div>
+  <!-- Header -->
+  <header class="site-header">
+    <nav class="navbar">
+      <div class="logo-container">
+        <img src=" https://via.placeholder.com/30 " alt="getgems Logo" class="logo-img">
+        <span class="logo-text">getgems</span>
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="Name or description">
+      </div>
+      <div class="nav-links">
+        <a href="#explore" class="nav-link">Explore</a>
+        <a href="#stats" class="nav-link">Stats</a>
+        <a href="#create" class="nav-link">Create</a>
+        <div class="wallet-info">
+          <span class="balance">Ξ 2.74</span>
+          <div class="connect-wallet">Connect Wallet</div>
         </div>
-        <div class="footer-section">
-            <h3>getgems</h3>
-            <p>Welcome to the largest NFT marketplace based on The Open Network. Make yourself at home among other NFT enthusiasts.</p>
-            <div class="social-links">
-                <a href="#">Channel</a>
-                <a href="#">Twitter</a>
-                <a href="#">GitHub</a>
-            </div>
-        </div>
-        <div class="footer-section">
-            <h3>Marketplace</h3>
-            <p>Brand</p>
-            <p>For NFT Creators</p>
-            <p>Terms</p>
-            <p>Privacy Policy</p>
-        </div>
-        <div class="footer-section">
-            <h3>Contacts</h3>
-            <p>Support Bot</p>
-            <p>support@getgems.io</p>
-        </div>
-        <div class="footer-bottom">
-            <p>Based on TON</p>
-        </div>
-    </footer>
+      </div>
+    </nav>
+  </header>
 
-    <script src="./tonsdk.js"></script>
+  <!-- Main Content -->
+  <main class="main-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h1 class="title">Discover Rare <span class="highlight">NFTs</span> on TON</h1>
+      <p class="subtitle">The premier NFT marketplace on The Open Network. Buy, sell, and create unique digital assets.</p>
+      <a href="#explore" class="cta-button">Explore Now</a>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="featured-section">
+      <div class="featured-card">
+        <img src="https://via.placeholder.com/300 " alt="Custom Background" class="featured-image">
+        <div class="featured-content">
+          <h3>CUSTOM BACKGROUND</h3>
+          <p>Make your Telegram Username NFTs stand out with custom backgrounds</p>
+        </div>
+      </div>
+      <div class="featured-card">
+        <img src="https://via.placeholder.com/300 " alt="NFT Land" class="featured-image">
+        <div class="featured-content">
+          <h3>NFT LAND</h3>
+          <p>Check out NFT from the NFT land. Holder collection #ad</p>
+        </div>
+      </div>
+      <div class="featured-card">
+        <img src="https://via.placeholder.com/300 " alt="0% Fees for Gifts" class="featured-image">
+        <div class="featured-content">
+          <h3>0% FEES FOR GIFTS</h3>
+          <p>Telegram ownership: 100% ownership</p>
+        </div>
+      </div>
+      <div class="featured-card">
+        <img src="https://via.placeholder.com/300 " alt="Getgems Wrapped 2024" class="featured-image">
+        <div class="featured-content">
+          <h3>GETGEMS WRAPPED 2024</h3>
+          <p>See a recap of the most exciting NFT releases in 2024</p>
+        </div>
+      </div>
+      <div class="featured-card">
+        <img src="https://via.placeholder.com/300 " alt="How to Verify Collection?" class="featured-image">
+        <div class="featured-content">
+          <h3>HOW TO VERIFY COLLECTION?</h3>
+          <p>Learn how to verify your collection</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trending NFTs -->
+    <section class="nft-gallery">
+      <h2 class="gallery-title">Trending NFTs</h2>
+      <div class="nft-grid">
+        <div class="nft-card">
+          <div class="nft-image-container">
+            <img src="https://via.placeholder.com/250x200 " alt="Durov's Caps #3066" class="nft-image">
+          </div>
+          <div class="nft-info">
+            <h3 class="nft-name">Durov's Caps #3066</h3>
+            <div class="nft-price">
+              <img src="https://via.placeholder.com/16 " alt="TON Symbol" class="ton-symbol">
+              <span>7.875 TON</span>
+            </div>
+            <button class="buy-button">Buy</button>
+          </div>
+        </div>
+        <div class="nft-card">
+          <div class="nft-image-container">
+            <img src="https://via.placeholder.com/250x200 " alt="Top Hat #7550" class="nft-image">
+          </div>
+          <div class="nft-info">
+            <h3 class="nft-name">Top Hat #7550</h3>
+            <div class="nft-price">
+              <img src="https://via.placeholder.com/16 " alt="TON Symbol" class="ton-symbol">
+              <span>19.19 TON</span>
+            </div>
+            <button class="buy-button">Buy</button>
+          </div>
+        </div>
+        <div class="nft-card">
+          <div class="nft-image-container">
+            <img src="https://via.placeholder.com/250x200 " alt="Plush Pepes" class="nft-image">
+          </div>
+          <div class="nft-info">
+            <h3 class="nft-name">Plush Pepes</h3>
+            <div class="nft-price">
+              <img src="https://via.placeholder.com/16 " alt="TON Symbol" class="ton-symbol">
+              <span>62.9K TON</span>
+            </div>
+            <button class="buy-button">Buy</button>
+          </div>
+        </div>
+        <div class="nft-card">
+          <div class="nft-image-container">
+            <img src="https://via.placeholder.com/250x200 " alt="Precious Peaches" class="nft-image">
+          </div>
+          <div class="nft-info">
+            <h3 class="nft-name">Precious Peaches</h3>
+            <div class="nft-price">
+              <img src="https://via.placeholder.com/16 " alt="TON Symbol" class="ton-symbol">
+              <span>4.3K TON</span>
+            </div>
+            <button class="buy-button">Buy</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Top Collections -->
+    <section class="top-collections">
+      <h2 class="section-title">Top Collections <span class="filter">1 day</span></h2>
+      <div class="collection-list">
+        <div class="collection-item">
+          <img src="https://via.placeholder.com/50 " alt="Anonymous Telegram Numbers">
+          <span>Anonymous Telegram Numbers</span>
+          <span class="price">888.8K TON</span>
+          <span class="change">+7%</span>
+        </div>
+        <div class="collection-item">
+          <img src="https://via.placeholder.com/50 " alt="Telegram Usernames">
+          <span>Telegram Usernames</span>
+          <span class="price">503.8K TON</span>
+          <span class="change">+7%</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Top Auctions -->
+    <section class="top-auctions">
+      <h2 class="section-title">Top Auctions</h2>
+      <div class="auction-list">
+        <div class="auction-item">
+          <img src="https://via.placeholder.com/100 " alt="Durov's Caps">
+          <span>Durov's Caps #3066</span>
+          <span class="bid">7.875 TON</span>
+          <span class="time">3 hours</span>
+        </div>
+        <div class="auction-item">
+          <img src="https://via.placeholder.com/100 " alt="Top Hats">
+          <span>Top Hat #7550</span>
+          <span class="bid">19.19 TON</span>
+          <span class="time">6 hours</span>
+        </div>
+      </div>
+      <button class="see-all">See All</button>
+    </section>
+
+    <!-- Top Gifts -->
+    <section class="top-telegram-gifts">
+      <h2 class="section-title">Top Telegram Gifts</h2>
+      <div class="gift-list">
+        <div class="gift-item">
+          <img src="https://via.placeholder.com/50 " alt="Plush Pepes">
+          <span>Plush Pepes</span>
+          <span class="price">62.9K TON</span>
+          <span class="change">-48%</span>
+        </div>
+        <div class="gift-item">
+          <img src="https://via.placeholder.com/50 " alt="Precious Peaches">
+          <span>Precious Peaches</span>
+          <span class="price">4.3K TON</span>
+          <span class="change">-48%</span>
+        </div>
+      </div>
+      <button class="see-all">See All</button>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-section">
+      <h3>About TON & NFT</h3>
+      <div class="footer-item">
+        <img src="https://via.placeholder.com/50 " alt="What is Getgems?">
+        <p>What is Getgems?</p>
+      </div>
+      <div class="footer-item">
+        <img src="https://via.placeholder.com/50 " alt="What is Ton?">
+        <p>What is Ton?</p>
+      </div>
+      <div class="footer-item">
+        <img src="https://via.placeholder.com/50 " alt="What is an NFT?">
+        <p>What is an NFT?</p>
+      </div>
+    </div>
+    <div class="footer-section">
+      <h3>getgems</h3>
+      <p>Welcome to the largest NFT marketplace based on The Open Network. Make yourself at home among other NFT enthusiasts.</p>
+      <div class="social-links">
+        <a href="#">Channel</a>
+        <a href="#">Twitter</a>
+        <a href="#">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-section">
+      <h3>Marketplace</h3>
+      <p>Brand</p>
+      <p>For NFT Creators</p>
+      <p>Terms</p>
+      <p>Privacy Policy</p>
+    </div>
+    <div class="footer-section">
+      <h3>Contacts</h3>
+      <p>Support Bot</p>
+      <p>support@getgems.io</p>
+    </div>
+    <div class="footer-bottom">
+      <p>Based on TON</p>
+    </div>
+  </footer>
+
 </body>
 </html>
